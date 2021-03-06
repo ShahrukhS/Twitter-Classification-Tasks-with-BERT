@@ -11,10 +11,10 @@ Multi-class classification tasks in this project scope:
 - [x] Sentiment Analysis: [SemEval 2017 (Sentiment Analysis in Twitter)](https://www.aclweb.org/anthology/S17-2088/) - 3 labels: positive, neutral, negative
 
 Other available multi-class classification tasks (not in this project scope):
-- [] Emoji Prediction, SemEval 2018 (Emoji Prediction) - 20 labels: ❤️, 😍, 😂 ... 🌲, 📷, 😜
-- [] Irony Detection, SemEval 2018 (Irony Detection) - 2 labels: irony, not irony
-- [] Offensive Language Identification, SemEval 2019 (OffensEval) - 2 labels: offensive, not offensive
-- [] Stance Detection*, SemEval 2016 (Detecting Stance in Tweets) - 3 labels: favour, neutral, against
+- [ ] Emoji Prediction, SemEval 2018 (Emoji Prediction) - 20 labels: ❤️, 😍, 😂 ... 🌲, 📷, 😜
+- [ ] Irony Detection, SemEval 2018 (Irony Detection) - 2 labels: irony, not irony
+- [ ] Offensive Language Identification, SemEval 2019 (OffensEval) - 2 labels: offensive, not offensive
+- [ ] Stance Detection*, SemEval 2016 (Detecting Stance in Tweets) - 3 labels: favour, neutral, against
 
 ## Pre-trained model and code
 You can download the best Twitter masked language model (RoBERTa-retrained in the paper) from 🤗HuggingFace here, that is being used in the notebook for Sentiment Analysis:
