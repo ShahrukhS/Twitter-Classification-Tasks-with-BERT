@@ -13,33 +13,12 @@ This README describes the format, file and directory structure associated with T
 - emoji
 	- {dataset}
 	- mapping.txt
-- emotion
-	- {dataset}
-	- mapping.txt
 - hate
-	- {dataset}
-	- mapping.txt
-- irony
-	- {dataset}
-	- mapping.txt
-- offensive
 	- {dataset}
 	- mapping.txt
 - sentiment
 	- {dataset}
 	- mapping.txt
-- stance
-	- abortion
-		- {dataset}
-	- atheism
-		- {dataset}
-	- climate
-		- {dataset}
-	- feminist
-		- {dataset}
-	- hilary
-		- {dataset}
-	mapping.txt
 
 === FILE FORMAT ===
 
