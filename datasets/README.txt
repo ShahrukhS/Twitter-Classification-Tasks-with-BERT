@@ -26,4 +26,4 @@ Each {train/val/test}_text.txt file has one tweet per line in the original forma
 
 === REFERENCES ===
 
-Please check the main README for details about the main reference paper and the articles associated with each of the datasets
+Please check the main README for details about the main reference paper and the articles associated with each of the datasets.
