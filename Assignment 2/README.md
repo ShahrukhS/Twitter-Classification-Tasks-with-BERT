@@ -10,6 +10,13 @@ This project is built for three tasks (Sentiment Analysis, Emotion Recognition, 
 ```bash
 git clone https://github.com/cardiffnlp/tweeteval
 ```
+## Results
+
+| Model | Sentiment [1] | Emotion [2] | Hate [3] | Irony [4] | Offensive [5] | Emoji [6] | Total |
+|----------|------:|--------:|-----:|------:|----------:|----------:|---------|
+| BERTweet   | 70.79       | **85.18**       | **59.06**    |82.62     | 83.25         | 38.90     | **69.92**     |
+| RoBERTa-base  | 70.91      | 84.35       | 56.76   | 79.50    | 83.37         | **39.21**        | 69.01     |
+| BERT-base | **70.95**     | 84.59       | 56.12    | 83.12     | **83.71**        | 39.12         | 69.60     |
 
 ## Dependancies
 To install dependancies run the following command:
@@ -72,21 +79,3 @@ Evaluation script sample usage from the terminal with parameters:
 ```bash
 python evaluation_script.py --tweeteval_path ./datasets/ --predictions_path ./predictions/ --task emoji
 ```
-
-## Results
-
-| Model | Sentiment [1] | Emotion [2] | Hate [3] | Irony [4] | Offensive [5] | Emoji [6] | Total |
-|----------|------:|--------:|-----:|------:|----------:|----------:|---------|
-| BERTweet   | 70.79       | **85.18**       | **59.06**    |82.62     | 83.25         | 38.90     | **69.92**     |
-| BERTweet -> [2]  | 70.91      | 84.35       | 56.76   | 79.50    | 83.37         | **39.21**        | 69.01     |
-| BERTweet -> [2] -> [3] | **70.95**     | 84.59       | 56.12    | 83.12     | **83.71**        | 39.12         | 69.60     |
-| BERTweet -> [2] -> [3] -> [4] |70.33     | 83.79       | 55.44    | **83.62**     | **83.71**         | 38.91         | 69.3     |
-
-### Note:
-`Model -> [x]` means that model  was fine-tuned on dataset x.
-
-## Reference:
-This code was based on [This code](https://mccormickml.com/2019/07/22/BERT-fine-tuning/)
-
-## TODO:
-[ ] test all the compatible hugginface models
