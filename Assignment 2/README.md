@@ -1,6 +1,14 @@
-# BERT_for_twitter_performance_investigation
+# Resolving Mysteries of Twitter Data (Deeper Dive)
 ## Description
-I investigated the performance of BERT/BERTweet performance on the TweetEval benchmark using different transfer learning scenarios. 
+I have used three transformer based models (BERT variants) from [huggingface](https://huggingface.co/) in this project and have evaluated their performances with [TweetEval benchmark](https://github.com/cardiffnlp/tweeteval) using different transfer learning scenarios.
+- BERTweet
+- Roberta
+- BERT base
+
+### BERTweet
+- BERTweet is the first public large-scale language model pre-trained for English Tweets. BERTweet is trained based on the RoBERTa pre-training procedure, using the same model configuration as BERT-base.
+- The corpus used to pre-train BERTweet consists of 850M English Tweets (16B word tokens ~ 80GB), containing 845M Tweets streamed from 01/2012 to 08/2019 and 5M Tweets related to the COVID-19 pandemic.
+- The general architecture and experimental results of BERTweet can be found in our [paper](https://www.aclweb.org/anthology/2020.emnlp-demos.2/).
 
 ## Dataset:  
 The dataset used in the TweetEval dataset at [tweetevel](https://github.com/cardiffnlp/tweeteval). To download the dataset: 
