@@ -2,11 +2,11 @@
 ## Description
 I have used three transformer based models (BERT variants) from [huggingface](https://huggingface.co/) in this project and have evaluated their performances with [TweetEval benchmark](https://github.com/cardiffnlp/tweeteval) using different transfer learning scenarios.
 * [BERTweet](https://www.aclweb.org/anthology/2020.emnlp-demos.2/) - The corpus used to pre-train BERTweet consists of 850M English Tweets (16B word tokens ~ 80GB), containing 845M Tweets streamed from 01/2012 to 08/2019 and 5M Tweets related to the COVID-19 pandemic.
-* Roberta
-* BERT base
+* [Roberta-twitter](https://arxiv.org/abs/2010.12421) - roBERTa-base model pre-trained on ~58M tweets. Twitter masked language model RoBERTa-retrained (task-specific fine-tuned) is also available in huggingface for you to download and evaluate.
+* [BERT-base-uncased](https://github.com/google-research/bert) - Trained on lower-cased English text, available with 12 encoder layers, 768 output hidden-size, 12-heads, 110M parameters.
 
-## Dataset:  
-The dataset used in the TweetEval dataset at [tweetevel](https://github.com/cardiffnlp/tweeteval). To download the dataset: 
+## Tasks & Dataset:  
+This project is built for three tasks (Sentiment Analysis, Emotion Recognition, and Hate Speech Detection) with the task-specific datasets from TweetEval Framework. To download the dataset: 
 ```bash
 git clone https://github.com/cardiffnlp/tweeteval
 ```
