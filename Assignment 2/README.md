@@ -1,23 +1,33 @@
-# BERT_for_twitter_performance_investigation
+# Resolving Mysteries of Twitter Data (Deeper Dive)
 ## Description
-I investigated the performance of BERT/BERTweet performance on the TweetEval benchmark using different transfer learning scenarios. 
+I have used three transformer based models (BERT variants) from [huggingface](https://huggingface.co/) in this project and have evaluated their performances with [TweetEval benchmark](https://github.com/cardiffnlp/tweeteval) using different transfer learning scenarios.
+* [BERTweet](https://www.aclweb.org/anthology/2020.emnlp-demos.2/) - The corpus used to pre-train BERTweet consists of 850M English Tweets (16B word tokens ~ 80GB), containing 845M Tweets streamed from 01/2012 to 08/2019 and 5M Tweets related to the COVID-19 pandemic.
+* [Roberta-twitter](https://arxiv.org/abs/2010.12421) - roBERTa-base model pre-trained on ~58M tweets. Twitter masked language model RoBERTa-retrained (task-specific fine-tuned) is also available in huggingface for you to download and evaluate.
+* [BERT-base-uncased](https://github.com/google-research/bert) - Trained on lower-cased English text, available with 12 encoder layers, 768 output hidden-size, 12-heads, 110M parameters.
 
-## Dataset:  
-The dataset used in the TweetEval dataset at [tweetevel](https://github.com/cardiffnlp/tweeteval). To download the dataset: 
+## Tasks & Dataset:  
+This project is built for three tasks (Sentiment Analysis, Emotion Recognition, and Hate Speech Detection) with the task-specific datasets from TweetEval Framework. To download the dataset: 
 ```bash
 git clone https://github.com/cardiffnlp/tweeteval
 ```
+## Results
+
+| Model | Sentiment [1] | Emotion [2] | Hate [3] |
+|----------|------:|--------:|-----:|
+| BERTweet   | 70.79       | 85.18       | 59.06    |
+| RoBERTa-base  | 70.91      | 84.35       | 56.76   |
+| BERT-base | **70.95**     | 84.59       | 56.12    |
 
 ## Dependancies
 To install dependancies run the following command:
 ```bash
-cd BERT_for_twitter_performance_investigation &&  pip install -r requirements.txt
+pip install -r requirements.txt
 ```
 
 ## Training:
 Here is the syntax of the python file
 ```
-usage: run_emotions.py [-h] [--batch_size BATCH_SIZE]
+usage: TweetClassificationScript.py [-h] [--batch_size BATCH_SIZE]
                                                [--epochs EPOCHS]
                                                [--total_steps TOTAL_STEPS]
                                                [--dataset_location DATASET_LOCATION]
@@ -44,23 +54,28 @@ optional arguments:
   --save SAVE           Save the model to disk
 ```
 
-Model is by default  [vinai/bertweet-base](https://huggingface.co/vinai/bertweet-base)
+Model is by default [vinai/bertweet-base](https://huggingface.co/vinai/bertweet-base)
 
-## Results
+## Evaluating the system
+For evaluating the system and the predictions made by the script, you simply need a predictions file for each of the tasks in the predictions folder. The format of the predictions file should be the same as the output examples in the predictions folder (one output label per line as per the original test file). The best predictions made by the script with BERTweet-base model, are included as an example in this repo.
 
+#### usage
+```bash
+python evaluation_script.py
+```
+The script takes the TweetEval gold/actual test labels and the predictions from the "predictions" folder by default, but you can set this to suit your needs as optional arguments.
 
-| Model | Sentiment [1] | Emotion [2] | Hate [3] | Irony [4] | Offensive [5] | Emoji [6] | Total |
-|----------|------:|--------:|-----:|------:|----------:|----------:|---------|
-| BERTweet   | 70.79       | **85.18**       | **59.06**    |82.62     | 83.25         | 38.90     | **69.92**     |
-| BERTweet -> [2]  | 70.91      | 84.35       | 56.76   | 79.50    | 83.37         | **39.21**        | 69.01     |
-| BERTweet -> [2] -> [3] | **70.95**     | 84.59       | 56.12    | 83.12     | **83.71**        | 39.12         | 69.60     |
-| BERTweet -> [2] -> [3] -> [4] |70.33     | 83.79       | 55.44    | **83.62**     | **83.71**         | 38.91         | 69.3     |
+Optional arguments
+Three optional arguments can be modified:
 
-### Note:
-`Model -> [x]` means that model  was fine-tuned on dataset x.
+_--tweeteval_path_: Path to TweetEval datasets. Default: "./datasets/"
 
-## Reference:
-This code was based on [This code](https://mccormickml.com/2019/07/22/BERT-fine-tuning/)
+_--predictions_path_: Path to predictions directory. Default: "./predictions/"
 
-## TODO:
-[ ] test all the compatible hugginface models
+_--task_: Use this to get single task detailed results (emotion|hate|sentiment). Default: ""
+
+Evaluation script sample usage from the terminal with parameters:
+
+```bash
+python evaluation_script.py --tweeteval_path ./datasets/ --predictions_path ./predictions/ --task emoji
+```
