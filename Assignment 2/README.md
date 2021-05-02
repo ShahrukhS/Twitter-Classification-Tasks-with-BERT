@@ -12,11 +12,11 @@ git clone https://github.com/cardiffnlp/tweeteval
 ```
 ## Results
 
-| Model | Sentiment [1] | Emotion [2] | Hate [3] | Irony [4] | Offensive [5] | Emoji [6] | Total |
-|----------|------:|--------:|-----:|------:|----------:|----------:|---------|
-| BERTweet   | 70.79       | **85.18**       | **59.06**    |82.62     | 83.25         | 38.90     | **69.92**     |
-| RoBERTa-base  | 70.91      | 84.35       | 56.76   | 79.50    | 83.37         | **39.21**        | 69.01     |
-| BERT-base | **70.95**     | 84.59       | 56.12    | 83.12     | **83.71**        | 39.12         | 69.60     |
+| Model | Sentiment [1] | Emotion [2] | Hate [3] |
+|----------|------:|--------:|-----:|
+| BERTweet   | 70.79       | 85.18       | 59.06    |
+| RoBERTa-base  | 70.91      | 84.35       | 56.76   |
+| BERT-base | **70.95**     | 84.59       | 56.12    |
 
 ## Dependancies
 To install dependancies run the following command:
