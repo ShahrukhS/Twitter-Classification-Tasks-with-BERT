@@ -14,13 +14,13 @@ git clone https://github.com/cardiffnlp/tweeteval
 ## Dependancies
 To install dependancies run the following command:
 ```bash
-cd BERT_for_twitter_performance_investigation &&  pip install -r requirements.txt
+pip install -r requirements.txt
 ```
 
 ## Training:
 Here is the syntax of the python file
 ```
-usage: run_emotions.py [-h] [--batch_size BATCH_SIZE]
+usage: TweetClassificationScript.py [-h] [--batch_size BATCH_SIZE]
                                                [--epochs EPOCHS]
                                                [--total_steps TOTAL_STEPS]
                                                [--dataset_location DATASET_LOCATION]
@@ -47,10 +47,33 @@ optional arguments:
   --save SAVE           Save the model to disk
 ```
 
-Model is by default  [vinai/bertweet-base](https://huggingface.co/vinai/bertweet-base)
+Model is by default [vinai/bertweet-base](https://huggingface.co/vinai/bertweet-base)
+
+## Evaluating the system
+For evaluating the system and the predictions made by the script, you simply need a predictions file for each of the tasks in the predictions folder. The format of the predictions file should be the same as the output examples in the predictions folder (one output label per line as per the original test file). The best predictions made by the script with BERTweet-base model, are included as an example in this repo.
+
+#### usage
+```bash
+python evaluation_script.py
+```
+The script takes the TweetEval gold/actual test labels and the predictions from the "predictions" folder by default, but you can set this to suit your needs as optional arguments.
+
+Optional arguments
+Three optional arguments can be modified:
+
+_--tweeteval_path_: Path to TweetEval datasets. Default: "./datasets/"
+
+_--predictions_path_: Path to predictions directory. Default: "./predictions/"
+
+_--task_: Use this to get single task detailed results (emotion|hate|sentiment). Default: ""
+
+Evaluation script sample usage from the terminal with parameters:
+
+```bash
+python evaluation_script.py --tweeteval_path ./datasets/ --predictions_path ./predictions/ --task emoji
+```
 
 ## Results
-
 
 | Model | Sentiment [1] | Emotion [2] | Hate [3] | Irony [4] | Offensive [5] | Emoji [6] | Total |
 |----------|------:|--------:|-----:|------:|----------:|----------:|---------|
