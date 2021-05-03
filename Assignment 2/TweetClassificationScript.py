@@ -282,7 +282,7 @@ def main():
     parser.add_argument('--batch_size', type=int, default=32, help='The batch size for training')
     parser.add_argument('--epochs', type=int, default=4, help='The batch size for training')
     parser.add_argument('--dataset_root_path', type=str, default='.', help='Root directory path to the dataset')
-    parser.add_argument('--model_class', type=str, default='bertweet', choices=['bertweet', 'bert', 'roberta'],
+    parser.add_argument('--model_class', type=str, default='bertweet', choices=['bertweet', 'roberta', 'bert'],
                         help='The pre-trained hugginface model to load')
     parser.add_argument('--task', type=str, default='sentiment', choices=['emotion', 'hate', 'sentiment'],
                         help='The TweetEval dataset to choose')
@@ -290,13 +290,14 @@ def main():
     parser.add_argument('--save', type=str, default='./model.pb', help='Save the model to disk')
 
     args = parser.parse_args()
+    model_class = MODEL_CLASSES[args.model_class]
 
     train_df, val_df, test_df, num_classes = prepare_data(args.dataset_root_path, args.task)
     train_dataloader, validation_dataloader, test_dataloader = data_loader(train_df, test_df, val_df,
-                                                                           tokenizer_class="vinai/bertweet-base",
+                                                                           tokenizer_class=model_class,
                                                                            batch_size=args.batch_size)
     total_steps = len(train_dataloader) * args.epochs
-    model, optimizer, scheduler = prepare_model(MODEL_CLASSES[args.model_class], num_classes, args.model_to_load,
+    model, optimizer, scheduler = prepare_model(model_class, num_classes, args.model_to_load,
                                                    total_steps)
     train(model, optimizer, scheduler, train_dataloader, validation_dataloader, args.epochs, args.save)
     predictions = predict(model, test_dataloader)
