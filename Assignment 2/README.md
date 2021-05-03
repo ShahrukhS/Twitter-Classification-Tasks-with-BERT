@@ -77,5 +77,5 @@ _--task_: Use this to get single task detailed results (emotion|hate|sentiment).
 Evaluation script sample usage from the terminal with parameters:
 
 ```bash
-python evaluation_script.py --tweeteval_path ./datasets/ --predictions_path ./predictions/ --task emoji
+python evaluation_script.py --tweeteval_path ./datasets/ --predictions_path ./predictions/ --task emotion
 ```
