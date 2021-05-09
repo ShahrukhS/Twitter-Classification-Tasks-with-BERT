@@ -14,9 +14,9 @@ git clone https://github.com/cardiffnlp/tweeteval
 
 | Model | Sentiment [1] | Emotion [2] | Hate [3] |
 |----------|------:|--------:|-----:|
-| BERTweet   | 70.79       | 85.18       | 59.06    |
-| RoBERTa-base  | 70.91      | 84.35       | 56.76   |
-| BERT-base | **70.95**     | 84.59       | 56.12    |
+| BERTweet   | **73.58**       | **81.63**       | **60.12**    |
+| RoBERTa-base  | 73.2      | 72.87       | 54.5   |
+| BERT-base | 72.5     | 75.2       | 44.3    |
 
 ## Dependancies
 To install dependancies run the following command:
