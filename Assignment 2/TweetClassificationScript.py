@@ -1,4 +1,3 @@
-from absl import app, flags
 import pandas as pd
 import numpy as np
 import random
@@ -9,11 +8,6 @@ import torch
 import os
 from transformers import (get_linear_schedule_with_warmup, AdamW, AutoTokenizer, AutoModelForSequenceClassification)
 from torch.utils.data import (TensorDataset, DataLoader, RandomSampler, SequentialSampler)
-
-flags.DEFINE_integer('max_seq_length', 128, '')
-flags.DEFINE_float('lr', 5e-5, '')
-
-FLAGS = flags.FLAGS
 
 MODEL_CLASSES = {
     'bertweet': 'vinai/bertweet-base',
@@ -35,13 +29,13 @@ def prepare_data(root_dir='.', dataset='hate'):
 
     # creating dataframe
     train_df = pd.DataFrame({'tweet': train_text, 'label': [int(lbl.strip('\n')) for lbl in train_labels]})
-    val_df = pd.DataFrame({'tweet': train_text, 'label': [int(lbl.strip('\n')) for lbl in train_labels]})
-    test_df = pd.DataFrame({'tweet': train_text, 'label': [int(lbl.strip('\n')) for lbl in train_labels]})
+    val_df = pd.DataFrame({'tweet': val_text, 'label': [int(lbl.strip('\n')) for lbl in val_labels]})
+    test_df = pd.DataFrame({'tweet': test_text, 'label': [int(lbl.strip('\n')) for lbl in test_labels]})
     num_classes = train_df['label'].unique().shape[0]
     return train_df, val_df, test_df, num_classes
 
 
-def encode(df, tokenizer, max_seq_length=512):
+def encode(df, tokenizer, max_seq_length = 128):
     input_ids = []
     attention_masks = []
     for tweet in df[["tweet"]].values:
@@ -49,7 +43,7 @@ def encode(df, tokenizer, max_seq_length=512):
         encoded_dict = tokenizer.encode_plus(
             tweet,
             add_special_tokens=True,
-            max_length=FLAGS.max_sequence_length,
+            max_length=max_seq_length,
             pad_to_max_length=True,
             return_attention_mask=True,
             return_tensors='pt',
@@ -127,7 +121,7 @@ def prepare_model(model_class="vinai/bertweet-base", num_classes=2, model_to_loa
     )
 
     optimizer = AdamW(model.parameters(),
-                      lr=FLAGS.lr,
+                      lr=5e-5,
                       eps=1e-8
                       )
     scheduler = get_linear_schedule_with_warmup(optimizer,
@@ -245,15 +239,15 @@ def train(model, optimizer, scheduler, train_dataloader, validation_dataloader, 
 
         print("")
         print("  Average training loss: {0:.2f}".format(avg_train_loss))
-        print("  Training epcoh took: {:}".format(training_time))
+        print("  Training epoch took: {:}".format(training_time))
 
         avg_val_accuracy, avg_val_loss, validation_time = validate(model, validation_dataloader)
         training_stats.append(
             {
                 'epoch': epoch_i + 1,
                 'Training Loss': avg_train_loss,
-                'Valid. Loss': avg_val_loss,
-                'Valid. Accur.': avg_val_accuracy,
+                'Validation Loss': avg_val_loss,
+                'Validation Accuracy': avg_val_accuracy,
                 'Training Time': training_time,
                 'Validation Time': validation_time
             }
@@ -279,12 +273,12 @@ def save_predictions(predictions, task):
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument('--batch_size', type=int, default=32, help='The batch size for training')
-    parser.add_argument('--epochs', type=int, default=4, help='The batch size for training')
+    parser.add_argument('--batch_size', type=int, default=32, help='Select batch size for task training')
+    parser.add_argument('--epochs', type=int, default=4, help='Select epochs for task training')
     parser.add_argument('--dataset_root_path', type=str, default='.', help='Root directory path to the dataset')
     parser.add_argument('--model_class', type=str, default='bertweet', choices=['bertweet', 'roberta', 'bert'],
                         help='The pre-trained hugginface model to load')
-    parser.add_argument('--task', type=str, default='sentiment', choices=['emotion', 'hate', 'sentiment'],
+    parser.add_argument('--task', type=str, default='hate', choices=['emotion', 'hate', 'sentiment'],
                         help='The TweetEval dataset to choose')
     parser.add_argument('--model_to_load', type=str, default=None, help='Load pre-trained BERT')
     parser.add_argument('--save', type=str, default='./model.pb', help='Save the model to disk')
@@ -303,6 +297,5 @@ def main():
     predictions = predict(model, test_dataloader)
     save_predictions(predictions, args.task)
 
-
 if __name__ == '__main__':
-    app.run(main)
+    main()
