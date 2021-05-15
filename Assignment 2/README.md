@@ -32,7 +32,7 @@ usage: TweetClassificationScript.py [-h] [--batch_size BATCH_SIZE]
                                                [--total_steps TOTAL_STEPS]
                                                [--dataset_location DATASET_LOCATION]
                                                [--model_class MODEL_CLASS]
-                                               [--dataset {emotion,hate,sentiment}]
+                                               [--task {emotion,hate,sentiment}]
                                                [--model_to_load MODEL_TO_LOAD]
                                                [--save SAVE]
 
@@ -47,8 +47,8 @@ optional arguments:
                         The tweetEval dataset location
   --model_class MODEL_CLASS
                         The pre-trained hugginface model to load
-  --dataset {emotion,hate,sentiment}
-                        The TweetEval dataset to choose
+  --task {emotion,hate,sentiment}
+                        The classification task from options of 3 tasks
   --model_to_load MODEL_TO_LOAD
                         Load pre-trained BERT
   --save SAVE           Save the model to disk
