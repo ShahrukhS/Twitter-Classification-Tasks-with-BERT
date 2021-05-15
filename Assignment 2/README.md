@@ -14,9 +14,9 @@ git clone https://github.com/cardiffnlp/tweeteval
 
 | Model | Sentiment [1] | Emotion [2] | Hate [3] |
 |----------|------:|--------:|-----:|
-| BERTweet   | 70.79       | 85.18       | 59.06    |
-| RoBERTa-base  | 70.91      | 84.35       | 56.76   |
-| BERT-base | **70.95**     | 84.59       | 56.12    |
+| BERTweet   | **73.58**       | **81.63**       | **60.12**    |
+| RoBERTa-base  | 73.2      | 72.87       | 54.5   |
+| BERT-base | 72.5     | 75.2       | 44.3    |
 
 ## Dependancies
 To install dependancies run the following command:
@@ -32,7 +32,7 @@ usage: TweetClassificationScript.py [-h] [--batch_size BATCH_SIZE]
                                                [--total_steps TOTAL_STEPS]
                                                [--dataset_location DATASET_LOCATION]
                                                [--model_class MODEL_CLASS]
-                                               [--dataset {emoji,emotion,hate,irony,offensive,sentiment}]
+                                               [--task {emotion,hate,sentiment}]
                                                [--model_to_load MODEL_TO_LOAD]
                                                [--save SAVE]
 
@@ -47,8 +47,8 @@ optional arguments:
                         The tweetEval dataset location
   --model_class MODEL_CLASS
                         The pre-trained hugginface model to load
-  --dataset {emoji,emotion,hate,irony,offensive,sentiment}
-                        The TweetEval dataset to choose
+  --task {emotion,hate,sentiment}
+                        The classification task from options of 3 tasks
   --model_to_load MODEL_TO_LOAD
                         Load pre-trained BERT
   --save SAVE           Save the model to disk
@@ -77,5 +77,5 @@ _--task_: Use this to get single task detailed results (emotion|hate|sentiment).
 Evaluation script sample usage from the terminal with parameters:
 
 ```bash
-python evaluation_script.py --tweeteval_path ./datasets/ --predictions_path ./predictions/ --task emoji
+python evaluation_script.py --tweeteval_path ./datasets/ --predictions_path ./predictions/ --task emotion
 ```
